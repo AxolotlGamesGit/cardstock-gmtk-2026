@@ -8,8 +8,19 @@ public class Wire : MonoBehaviour, IPointerClickHandler {
 
   [SerializeField] string wireName;
 
+  private bool isCut = false;
+
   public void OnPointerClick(PointerEventData eventData) {
-    Debug.Log("Wire cut: " + name);
+    Debug.Log("Wire cut: " + wireName);
+    isCut = true;
     OnCut?.Invoke();
+  }
+
+  public string GetName() {
+    return wireName;
+  }
+
+  public bool IsCut() {
+    return isCut;
   }
 }

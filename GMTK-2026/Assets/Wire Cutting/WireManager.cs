@@ -25,9 +25,34 @@ public class WireManager : MonoBehaviour {
       wires[2].ShouldCut = false;
       wires[3].ShouldCut = true;
     }
+
+    foreach (Wire wire in wires) {
+      if (!wire.ShouldCut) {
+        wire.OnCut.AddListener(GameOver);
+      }
+    }
+
+    StartMinigame();
   }
 
   public void StartMinigame() {
-    Debug.Log($"Cut the {wires[0]} wire, and the {wires[2]}/{wires[3]} wire, might have to guess on that one");
+    Debug.Log($"Cut the {wires[0].GetName()} wire, and the {wires[2].GetName()}/{wires[3].GetName()} wire, might have to guess on that one");
+  }
+
+  private void GameOver() {
+    Debug.Log("Game over");
+  }
+
+  private void WinMinigame() {
+    Debug.Log("You win");
+  }
+
+  private bool IsWon() {
+    foreach (Wire wire in wires) {
+      if (wire.ShouldCut ^ wire.IsCut()) {
+        return false;
+      }
+    }
+    return true;
   }
 }
