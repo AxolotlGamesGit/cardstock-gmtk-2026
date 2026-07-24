@@ -1,13 +1,20 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class WireManager : MonoBehaviour {
+  public UnityEvent OnGameOver;
+  public UnityEvent OnWin;
+
   [SerializeField] Wire[] wires;
 
   private int idealWireCount = 4;
-  private Wire firstWire;
-  private Wire unsureWireOne;
-  private Wire unsureWireTwo;
+
+  private void Awake() {
+    OnGameOver.AddListener(() => SceneManager.LoadScene("Lose Screen", LoadSceneMode.Single));
+    OnWin.AddListener(() => SceneManager.LoadScene("Win Screen", LoadSceneMode.Single));
+  }
 
   private void Start() {
     if (wires.Length != idealWireCount) {
@@ -28,7 +35,10 @@ public class WireManager : MonoBehaviour {
 
     foreach (Wire wire in wires) {
       if (!wire.ShouldCut) {
-        wire.OnCut.AddListener(GameOver);
+        wire.OnCut.AddListener(() => OnGameOver?.Invoke());
+      }
+      else {
+        wire.OnCut.AddListener(() => {if (IsWon()) { OnWin?.Invoke(); }});
       }
     }
 
@@ -37,14 +47,6 @@ public class WireManager : MonoBehaviour {
 
   public void StartMinigame() {
     Debug.Log($"Cut the {wires[0].GetName()} wire, and the {wires[2].GetName()}/{wires[3].GetName()} wire, might have to guess on that one");
-  }
-
-  private void GameOver() {
-    Debug.Log("Game over");
-  }
-
-  private void WinMinigame() {
-    Debug.Log("You win");
   }
 
   private bool IsWon() {

@@ -10,9 +10,12 @@ public class Wire : MonoBehaviour, IPointerClickHandler {
 
   private bool isCut = false;
 
+  private void Awake() {
+    OnCut.AddListener(() => { Debug.Log("Wire cut: " + wireName);
+                              isCut = true; });
+  }
+
   public void OnPointerClick(PointerEventData eventData) {
-    Debug.Log("Wire cut: " + wireName);
-    isCut = true;
     OnCut?.Invoke();
   }
 
