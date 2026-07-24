@@ -12,8 +12,8 @@ public class WireManager : MonoBehaviour {
   private int idealWireCount = 4;
 
   private void Awake() {
-    OnGameOver.AddListener(() => SceneManager.LoadScene("Lose Screen", LoadSceneMode.Single));
-    OnWin.AddListener(() => SceneManager.LoadScene("Win Screen", LoadSceneMode.Single));
+    OnGameOver.AddListener(() => SceneLoader.LoadLoseScreen());
+    OnWin.AddListener(() => SceneLoader.LoadWinScreen());
   }
 
   private void Start() {
