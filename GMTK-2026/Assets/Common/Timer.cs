@@ -22,6 +22,7 @@ public class Timer : MonoBehaviour {
     if (tmp == null) {
       Debug.LogError("No text mesh pro found on timer");
     }
+    OnTimeUp.AddListener(() => isRunning = false);
   }
 
   private void Start() {
