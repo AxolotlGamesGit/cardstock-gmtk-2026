@@ -3,8 +3,9 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class Wire : MonoBehaviour, IPointerClickHandler {
-  [HideInInspector] public bool ShouldCut;
+  [HideInInspector] public bool ShouldCut = false;
   public UnityEvent OnCut;
+  public AudioClip wireSound;
 
   [SerializeField] string wireName;
 

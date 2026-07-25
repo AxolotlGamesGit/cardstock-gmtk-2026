@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Wire Cutting/Wire Minigame.unity
     guid: 0fce38b47f241ca4998b7b86e39cb33e
+  - enabled: 1
+    path: Assets/Common/Start Screen.unity
+    guid: 25f062774652ec14ba2efd9c27e216ca
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

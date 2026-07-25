@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,54 +8,42 @@ public class WireManager : MonoBehaviour {
   public UnityEvent OnGameOver;
   public UnityEvent OnWin;
 
-  [SerializeField] Wire[] wires;
+  [SerializeField] WireChallenge[] pinkWireChallenges;
+  [SerializeField] WireChallenge[] randomWireChallenges;
+  [SerializeField] WireChallenge[] endWireChallenges;
 
-  private int idealWireCount = 4;
+  private List<WireChallenge> wireChallenges;
 
   private void Awake() {
     OnGameOver.AddListener(() => SceneLoader.LoadLoseScreen());
     OnWin.AddListener(() => SceneLoader.LoadWinScreen());
+
+    wireChallenges.Add(UnityEngine.Random.Range(0, 1) < 0.5 ? pinkWireChallenges[0] : pinkWireChallenges[1]);
+    randomWireChallenges = randomWireChallenges.OrderBy(x => UnityEngine.Random.Range(0f, 1f)).ToArray();
+    wireChallenges.AddRange(randomWireChallenges);
+    wireChallenges.AddRange(endWireChallenges);
+
+    if (wireChallenges.Count == 0) {
+      Debug.LogError("No challenges found");
+    }
   }
 
   private void Start() {
-    if (wires.Length != idealWireCount) {
-      Debug.LogError($"Not the right amount of wires, currently: {wires.Length}, should be: {idealWireCount}");
-    }
-    wires = wires.OrderBy(x => UnityEngine.Random.Range(0f,1f)).ToArray();
+    if (wireChallenges.Count > 1) {
 
-    wires[0].ShouldCut = true;
-    wires[1].ShouldCut = false;
-    if (UnityEngine.Random.Range(0, 1) < 0.5) {
-      wires[2].ShouldCut = true;
-      wires[3].ShouldCut = false;
-    }
-    else {
-      wires[2].ShouldCut = false;
-      wires[3].ShouldCut = true;
     }
 
-    foreach (Wire wire in wires) {
-      if (!wire.ShouldCut) {
-        wire.OnCut.AddListener(() => OnGameOver?.Invoke());
-      }
-      else {
-        wire.OnCut.AddListener(() => {if (IsWon()) { OnWin?.Invoke(); }});
-      }
+    foreach (WireChallenge challenge in wireChallenges) {
+      challenge.OnFail.AddListener(() => OnGameOver?.Invoke());
+      challenge.OnOutOfOrder.AddListener(() => OnGameOver?.Invoke());
     }
+
+    wireChallenges[wireChallenges.Count - 1].OnComplete.AddListener(() => OnWin?.Invoke());
 
     StartMinigame();
   }
 
   public void StartMinigame() {
-    Debug.Log($"Cut the {wires[0].GetName()} wire, and the {wires[2].GetName()}/{wires[3].GetName()} wire, might have to guess on that one");
-  }
-
-  private bool IsWon() {
-    foreach (Wire wire in wires) {
-      if (wire.ShouldCut ^ wire.IsCut()) {
-        return false;
-      }
-    }
-    return true;
+    wireChallenges[0].StartChallenge();
   }
 }
