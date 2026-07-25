@@ -4874,9 +4874,9 @@ MonoBehaviour:
   OnCut:
     m_PersistentCalls:
       m_Calls: []
-  wireSound: {fileID: 0}
-  wireName: 
-  spriteRenderer: {fileID: 0}
+  wireSound: {fileID: 8300000, guid: ea82f5ba9628d9e4999a73bc70a68cfa, type: 3}
+  wireName: Blue-3
+  spriteRenderer: {fileID: 1151372686}
 --- !u!60 &1151372685
 PolygonCollider2D:
   m_ObjectHideFlags: 0

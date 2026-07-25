@@ -17,12 +17,15 @@ public class WireChallenge : MonoBehaviour {
   [SerializeField] AudioClip endSound;
   [SerializeField] int wiresToCut = 1;
 
+  private bool isActive = false;
+
   private void Awake() {
     if (wires.Length < wiresToCut) {
       Debug.LogError($"Not enough wires, currently: {wires.Length}, should be at least: {wiresToCut}");
     }
 
-    //OnComplete.AddListener(() => audioSource.Stop());
+    OnComplete.AddListener(() => audioSource.Stop());
+    OnComplete.AddListener(() => Debug.Log($"Challenge completed: {name}"));
   }
 
   private void Start() {
@@ -34,10 +37,18 @@ public class WireChallenge : MonoBehaviour {
     }
   }
 
+  private void Update() {
+    if (IsComplete()  &&  isActive) {
+      isActive = false;
+      OnComplete?.Invoke();
+    }
+  }
+
   public void StartChallenge() {
     Debug.Log($"Challenge started: {name}");
 
     OnOutOfOrder.RemoveAllListeners();
+    isActive = true;
 
     for (int i = 0; i < wiresToCut; i++) {
       wires[i].ShouldCut = true;
@@ -45,14 +56,11 @@ public class WireChallenge : MonoBehaviour {
     for (int i = wiresToCut; i < wires.Length; i++) {
       wires[i].ShouldCut = false;
     }
-
     foreach (Wire wire in wires) {
+      wire.IsCut = false;
       wire.OnCut.RemoveListener(() => OnOutOfOrder?.Invoke());
       if (!wire.ShouldCut) {
         wire.OnCut.AddListener(() => OnFail?.Invoke());
-      }
-      else {
-        wire.OnCut.AddListener(() => { if (IsComplete()) { OnComplete?.Invoke(); } });
       }
     }
 
