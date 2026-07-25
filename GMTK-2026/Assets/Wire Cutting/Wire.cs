@@ -2,18 +2,19 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class Wire : MonoBehaviour, IPointerClickHandler {
   [HideInInspector] public bool ShouldCut = false;
   public UnityEvent OnCut;
   public AudioClip wireSound;
 
   [SerializeField] string wireName;
+  [SerializeField] SpriteRenderer spriteRenderer;
 
   private bool isCut = false;
 
   private void Awake() {
-    OnCut.AddListener(() => { Debug.Log("Wire cut: " + wireName);
-                              isCut = true; });
+    OnCut.AddListener(DefaultOnCut);
   }
 
   public void OnPointerClick(PointerEventData eventData) {
@@ -26,5 +27,11 @@ public class Wire : MonoBehaviour, IPointerClickHandler {
 
   public bool IsCut() {
     return isCut;
+  }
+
+  private void DefaultOnCut() {
+    Debug.Log("Wire cut: " + wireName);
+    isCut = true;
+    GetComponent<SpriteRenderer>().enabled = false;
   }
 }

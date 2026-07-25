@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(TextMeshProUGUI))]
 public class Timer : MonoBehaviour {
   public UnityEvent OnTimeUp;
 
@@ -36,13 +37,7 @@ public class Timer : MonoBehaviour {
     if (secondsLeft < 0) {
       OnTimeUp?.Invoke();
     }
-    if (Math.Round(secondsLeft) < 60) {
-      tmp.text = Math.Round(secondsLeft).ToString();
-    }
-    else {
-      TimeSpan _timespan = TimeSpan.FromSeconds(Math.Round(secondsLeft));
-      tmp.text = _timespan.Minutes + ":" + _timespan.Seconds.ToString("D2");
-    }
+    tmp.text = Math.Round(secondsLeft).ToString();
   }
 
   public void StartMinigame() {
