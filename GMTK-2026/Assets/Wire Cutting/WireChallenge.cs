@@ -72,12 +72,12 @@ public class WireChallenge : MonoBehaviour {
       yield return new WaitForSeconds(startSound.length);
     }
 
-    if (playChildSound  && wires[0].wireSound != null) {
+    if (isActive  &&  playChildSound  && wires[0].wireSound != null) {
       audioSource.PlayOneShot(wires[0].wireSound);
       yield return new WaitForSeconds(wires[0].wireSound.length);
     }
 
-    if (endSound != null) {
+    if (isActive && endSound != null) {
       audioSource.PlayOneShot(endSound);
       yield return new WaitForSeconds(endSound.length);
     }

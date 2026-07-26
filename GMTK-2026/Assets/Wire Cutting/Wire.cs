@@ -19,7 +19,9 @@ public class Wire : MonoBehaviour, IPointerClickHandler {
   }
 
   public void OnPointerClick(PointerEventData eventData) {
-    OnCut?.Invoke();
+    if (!isCut) {
+      OnCut?.Invoke();
+    }
   }
 
   public string GetName() {
