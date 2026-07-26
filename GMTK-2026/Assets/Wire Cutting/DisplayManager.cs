@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Wire : MonoBehaviour, IPointerClickHandler {
+public class DisplayManager : MonoBehaviour, IPointerClickHandler {
   [HideInInspector] public bool ShouldCut = false;
   public UnityEvent OnCut;
   public AudioClip wireSound;
@@ -15,6 +15,7 @@ public class Wire : MonoBehaviour, IPointerClickHandler {
 
   private void Awake() {
     OnCut.AddListener(DefaultOnCut);
+    isCut = false;
   }
 
   public void OnPointerClick(PointerEventData eventData) {

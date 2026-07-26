@@ -10,7 +10,7 @@ public class WireManager : MonoBehaviour {
   [SerializeField] WireChallenge[] pinkWireChallenges;
   [SerializeField] WireChallenge[] randomWireChallenges;
   [SerializeField] WireChallenge[] endWireChallenges;
-  [SerializeField] Timer timer;
+  [SerializeField] DisplayManager timer;
 
   private List<WireChallenge> wireChallenges = new List<WireChallenge>();
   private int challengeIndex = 0;

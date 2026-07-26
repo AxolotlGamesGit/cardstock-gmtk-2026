@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
-public class Timer : MonoBehaviour {
+public class DisplayManager : MonoBehaviour {
   public UnityEvent OnTimeUp;
 
   [SerializeField] TextMeshProUGUI tmp;

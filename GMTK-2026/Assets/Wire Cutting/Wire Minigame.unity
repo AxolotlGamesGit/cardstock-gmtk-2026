@@ -978,7 +978,7 @@ GameObject:
   - component: {fileID: 288481600}
   - component: {fileID: 288481602}
   m_Layer: 5
-  m_Name: Timer
+  m_Name: Calculator Display
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1131,7 +1131,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   tmp: {fileID: 288481600}
-  startingSeconds: 120
+  startingSeconds: 60
 --- !u!1 &292354802
 GameObject:
   m_ObjectHideFlags: 0
@@ -6009,8 +6009,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1454780431
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: fbe62fa8029efe340b2519a9fdba35d5, type: 3}
@@ -8046,8 +8046,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1454780431
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 666213d4543df9c45839611cdbe14bf9, type: 3}
