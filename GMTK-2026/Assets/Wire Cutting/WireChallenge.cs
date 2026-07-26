@@ -10,7 +10,7 @@ public class WireChallenge : MonoBehaviour {
   public UnityEvent OnComplete;
   public UnityEvent OnOutOfOrder;
 
-  [SerializeField] DisplayManager[] wires;
+  [SerializeField] Wire[] wires;
   [SerializeField] AudioSource audioSource;
   [SerializeField] AudioClip startSound;
   [SerializeField] bool playChildSound;
@@ -31,7 +31,7 @@ public class WireChallenge : MonoBehaviour {
   private void Start() {
     wires = wires.OrderBy(x => UnityEngine.Random.Range(0f, 1f)).ToArray();
 
-    foreach (DisplayManager wire in wires) {
+    foreach (Wire wire in wires) {
       wire.ShouldCut = true;
       wire.OnCut.AddListener(() => OnOutOfOrder?.Invoke());
     }
@@ -56,7 +56,7 @@ public class WireChallenge : MonoBehaviour {
     for (int i = wiresToCut; i < wires.Length; i++) {
       wires[i].ShouldCut = false;
     }
-    foreach (DisplayManager wire in wires) {
+    foreach (Wire wire in wires) {
       wire.OnCut.RemoveListener(() => OnOutOfOrder?.Invoke());
       if (!wire.ShouldCut) {
         wire.OnCut.AddListener(() => OnFail?.Invoke());
@@ -84,7 +84,7 @@ public class WireChallenge : MonoBehaviour {
   }
 
   private bool IsComplete() {
-    foreach (DisplayManager wire in wires) {
+    foreach (Wire wire in wires) {
       if (wire.ShouldCut ^ wire.IsCut()) {
         return false;
       }
