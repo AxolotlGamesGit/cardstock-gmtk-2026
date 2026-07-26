@@ -11,7 +11,7 @@ public class SceneLoader : MonoBehaviour {
   }
 
   public static void StartGame() {
-    LoadWireMinigame();
+    SceneManager.LoadScene("Intro", LoadSceneMode.Single);
   }
 
   public static void LoadStartScreen() {
